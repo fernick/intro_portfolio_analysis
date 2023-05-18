@@ -1,0 +1,46 @@
+Notes for Portfolio Analysis in Python
+Portfolio is used for diversification
+Better than investing in a single stock; due to volatily
+# Calculate percentage returns
+returns = data.pct_change()
+
+# Calculate individual mean returns 
+meanDailyReturns = returns.mean()
+
+# Define weights for the portfolio
+weights = np.array([0.5, 0.2,0.2, 0.1])
+
+# Calculate expected portfolio performance
+portReturn = np.sum(meanDailyReturns * weights)
+
+# Print the portfolio return
+print(portReturn) 
+
+# Calculate total rate of return from start to end
+total_return = (pf_AUM[-1] - pf_AUM[0]) / pf_AUM[0]
+
+# Annualize return
+annualized_return = ((1 + total_return)**(12/months))-1
+print (annualized_return)
+# Calculate the Sharpe ratio 
+sharpe_ratio = ((annualized_return - rfr) /vol_sp500)
+print (sharpe_ratio)
+rfr = risk free rate
+vol = standard deviation of the portfolio
+Sharpe ratio < 1 means the risk taken is not worth it; 
+You are taking more risk than the potential return
+The risk outweights the returns
+# Import the packages 
+from pypfopt import risk_models
+from pypfopt import expected_returns
+from pypfopt.efficient_frontier import EfficientFrontier
+
+# Calculate expected returns mu 
+mu = expected_returns.mean_historical_return(stock_prices)
+
+# Calculate the covariance matrix S
+Sigma = risk_models.sample_cov(stock_prices)
+
+# Obtain the efficient frontier
+ef = EfficientFrontier(mu, Sigma)
+print (mu, Sigma)
